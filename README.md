@@ -23,24 +23,25 @@ Bootstrap tags is a lightweight jQuery plugin meant to extend the Twitter Bootst
 				tagData:["boilerplate", "tags"],
 				suggestions:["basic", "suggestions"],
 				excludeList:["not", "these", "words"],
-			})
-		}
+			});
+		});
 	</script>
 
 ## Documentation
 
 ### Settings
 
-- `readonly`: boolean
-- `suggestions`: list of autosuggest terms
-- `restrictTo`: list of allowed tags
-- `exclude`: list of disallowed tags
-- `displayPopovers`: boolean
-- `tagClass`: string for what class the tag div will have for styling
-- `promptText`: placeholder string when there are no tags and nothing typed in
+- `readonly`: `boolean`
+- `suggestions`: `Array` - autosuggest terms
+- `restrictTo`: `Array` of allowed tags (will be combined with suggestions, if provided)
+- `exclude`: `Array` of disallowed tags
+- `displayPopovers`: `Boolean`
+- `popoverTrigger`: `String` 'click', 'hover', 'hoverShowClickHide' - indicate how popovers should be triggered
+- `tagClass`: `String` for what class the tag div will have for styling
+- `promptText`: `String` placeholder string when there are no tags and nothing typed in
+- `readOnlyEmptyMessage`: `String` text to be displayed if there are no tags in readonly mode
 
 See Implementation above for example
-
 
 ### Overrideable functions
 If you want to override any of the following functions, pass it as an option in the jQuery initialization.
@@ -58,24 +59,26 @@ If you want to override any of the following functions, pass it as an option in 
 
 Example:
 
-	pressedUp = function(e) { console.log('pressed up'); };
-	whenAddingTag = function (tag) {
-		console.log(tag);
-		// maybe fetch some content for the tag popover (can be HTML)
-	};
-	excludes = function (tag) {
-		// return false if this tagger does *not* exclude
-		// -> returns true if tagger should exclude this tag
-		// --> this will exclude anything with !
-		return (tag.indexOf("!") != -1);
-	};
-	$('#two').tags( {
-		suggestions : ["there", "were", "some", "suggested", "terms", "super", "secret", "stuff"],
-		restrictTo : ["restrict", "to", "these"],
-		whenAddingTag : whenAddingTag,
-		pressedUp : pressedUp,
-		tagClass : 'btn-warning' }
-	);
+```javascript
+pressedUp = function(e) { console.log('pressed up'); };
+whenAddingTag = function (tag) {
+	console.log(tag);
+	// maybe fetch some content for the tag popover (can be HTML)
+};
+excludes = function (tag) {
+	// return false if this tagger does *not* exclude
+	// -> returns true if tagger should exclude this tag
+	// --> this will exclude anything with !
+	return (tag.indexOf("!") != -1);
+};
+$('#two').tags( {
+	suggestions : ["there", "were", "some", "suggested", "terms", "super", "secret", "stuff"],
+	restrictTo : ["restrict", "to", "these"],
+	whenAddingTag : whenAddingTag,
+	pressedUp : pressedUp,
+	tagClass : 'btn-warning' }
+);
+```
 
 ### Controlling tags
 Some functions are chainable, and can be used to move the data around outside of the plugin.
@@ -94,14 +97,16 @@ Some functions are chainable, and can be used to move the data around outside of
 
 Example:
 
-	var tags = $('#one').tags( {
-		suggestions : ["here", "are", "some", "suggestions"],
-		popoverData : ["What a wonderful day", "to make some stuff", "up so that I", "can show it works"],
-		tagData: ["tag a", "tag b", "tag c", "tag d"],
-		excludeList : ["excuse", "my", "vulgarity"],
-	} );
-	tags.addTag("tag e!!").removeTag("tag b").setPopover("tag c", "Changed popover content");
-	console.log(tags.getTags());
+```javascript
+var tags = $('#one').tags( {
+	suggestions : ["here", "are", "some", "suggestions"],
+	popoverData : ["What a wonderful day", "to make some stuff", "up so that I", "can show it works"],
+	tagData: ["tag a", "tag b", "tag c", "tag d"],
+	excludeList : ["excuse", "my", "vulgarity"],
+} );
+tags.addTag("tag e!!").removeTag("tag b").setPopover("tag c", "Changed popover content");
+console.log(tags.getTags());
+```
 
 To reference a tags instance that you've already attached to a selector, (eg. $(selector).tags(options)) you can use $(selector).tags() or $(selector).tags(index)
 
