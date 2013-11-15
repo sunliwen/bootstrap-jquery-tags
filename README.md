@@ -128,3 +128,7 @@ then start up guard
 ## Testing
 
 Open SpecRunner.html (powered by Jasmine)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sunliwen/bootstrap-jquery-tags/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
